@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { JsonEditor } from "@/components/json/JsonEditor";
 import { Toaster } from "@/components/ui/sonner";
-import { Github, Lock, Zap } from "lucide-react";
+import { Github, Lock, Moon, Sun, Zap } from "lucide-react";
+import { useTheme } from "@/lib/theme";
 
 const SITE_URL = "https://sourcepiece.app";
 const PAGE_TITLE = "SourcePiece — JSON Görselleştirici, Formatlayıcı ve TypeScript Dönüştürücü";
@@ -67,6 +68,22 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+function ThemeToggle() {
+  const { resolved, toggle } = useTheme();
+  const isDark = resolved === "dark";
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      className="h-8 w-8 rounded-md border border-border flex items-center justify-center hover:bg-accent transition-colors"
+      aria-label={isDark ? "Aydınlık moda geç" : "Karanlık moda geç"}
+      title={isDark ? "Aydınlık mod" : "Karanlık mod"}
+    >
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
 function Home() {
   return (
     <div className="h-screen flex flex-col bg-background text-foreground">
@@ -108,15 +125,18 @@ function Home() {
           <span className="flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-primary" /> Anlık görselleştirme</span>
           <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-primary" /> %100 tarayıcıda çalışır</span>
         </div>
-        <a
-          href="https://github.com/muhammedEfe"
-          target="_blank"
-          rel="noreferrer"
-          className="ml-auto h-8 w-8 rounded-md border border-border flex items-center justify-center hover:bg-accent transition-colors"
-          aria-label="GitHub"
-        >
-          <Github className="h-4 w-4" />
-        </a>
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
+          <a
+            href="https://github.com/muhammedEfe"
+            target="_blank"
+            rel="noreferrer"
+            className="h-8 w-8 rounded-md border border-border flex items-center justify-center hover:bg-accent transition-colors"
+            aria-label="GitHub"
+          >
+            <Github className="h-4 w-4" />
+          </a>
+        </div>
       </header>
       <JsonEditor />
       <Toaster />

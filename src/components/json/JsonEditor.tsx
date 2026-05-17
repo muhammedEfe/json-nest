@@ -55,7 +55,7 @@ function Graph({ value }: { value: unknown }) {
       <MiniMap
         pannable
         zoomable
-        maskColor="oklch(0.16 0.015 250 / 0.7)"
+        maskColor="color-mix(in oklch, var(--background) 70%, transparent)"
         style={{ background: "var(--card)", border: "1px solid var(--border)" }}
         nodeColor={() => "var(--primary)"}
       />
