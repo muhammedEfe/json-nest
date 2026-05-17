@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { JsonEditor } from "@/components/json/JsonEditor";
 import { Toaster } from "@/components/ui/sonner";
 import { Github, Lock, Zap } from "lucide-react";
@@ -72,7 +72,7 @@ function Home() {
     <div className="h-screen flex flex-col bg-background text-foreground">
       <header className="flex items-center gap-3 px-4 h-14 border-b border-border bg-card/60 backdrop-blur shrink-0">
         <div className="sp-brand flex min-w-0 items-center gap-2 text-lg font-bold tracking-tight">
-          <a href="/" aria-label="SourcePiece" className="group flex min-w-0 items-center gap-2">
+          <Link to="/" aria-label="SourcePiece" className="group flex min-w-0 items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" className="shrink-0 rounded-lg h-8 w-8" aria-hidden="true">
               <defs>
                 <linearGradient id="sp-brand-grad" x1="0" y1="0" x2="1" y2="1">
@@ -96,20 +96,20 @@ function Home() {
                 Piece
               </span>
             </span>
-          </a>
-          <a
-            href="/"
+          </Link>
+          <Link
+            to="/"
             className="sp-mono hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-foreground hover:text-foreground sm:inline font-mono"
           >
             JSON Tools
-          </a>
+          </Link>
         </div>
         <div className="hidden md:flex items-center gap-4 ml-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-primary" /> Anlık görselleştirme</span>
           <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-primary" /> %100 tarayıcıda çalışır</span>
         </div>
         <a
-          href="https://github.com"
+          href="https://github.com/muhammedEfe"
           target="_blank"
           rel="noreferrer"
           className="ml-auto h-8 w-8 rounded-md border border-border flex items-center justify-center hover:bg-accent transition-colors"
