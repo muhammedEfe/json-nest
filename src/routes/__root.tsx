@@ -76,8 +76,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "color-scheme", content: "light dark" },
       { name: "format-detection", content: "telephone=no" },
-      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
-      { name: "googlebot", content: "index, follow" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

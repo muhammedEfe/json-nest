@@ -5,19 +5,22 @@ import { Github, Lock, Moon, Sun, Zap } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 import { useI18n } from "@/lib/i18n";
 
-const SITE_URL = "https://sourcepiece.com/json-nest";
+const SITE_URL = "https://sourcepiece.com/json-nest/";
 const APP_NAME = "JSON Nest";
-const PAGE_TITLE = "JSON Nest — JSON Görselleştirici, Formatlayıcı ve TypeScript Dönüştürücü";
+const BROWSER_TITLE = "JSON Nest";
+const PAGE_TITLE = "JSON Nest — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
 const PAGE_DESC =
-  "JSON verilerini anında etkileşimli grafik, ağaç ve formatlı çıktı olarak görselleştirin. Formatlayın, küçültün, doğrulayın ve TypeScript tiplerine dönüştürün. %100 tarayıcıda, sunucuya veri gitmez.";
-const OG_IMAGE = `${SITE_URL}/og-image.png`;
+  "JSON görselleştirme, formatlama, küçültme, doğrulama ve TypeScript tipine dönüştürme araçları. Tamamen tarayıcıda çalışır, sunucuya veri yüklenmez. Ücretsiz, hızlı ve güvenli.";
+const PAGE_KEYWORDS =
+  "JSON görselleştirici, JSON formatter, JSON viewer, JSON formatla, JSON küçült, JSON doğrula, JSON to TypeScript, JSON tree, JSON graph, JSON minify, JSON validator, online JSON araçları, ücretsiz JSON, tarayıcıda JSON, SourcePiece";
+const OG_IMAGE = `${SITE_URL}og-image.png`;
 
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebApplication",
-      "@id": `${SITE_URL}/#webapp`,
+      "@id": `${SITE_URL}#webapp`,
       name: APP_NAME,
       url: SITE_URL,
       description: PAGE_DESC,
@@ -36,7 +39,7 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
+      "@id": `${SITE_URL}#website`,
       url: SITE_URL,
       name: APP_NAME,
     },
@@ -46,30 +49,29 @@ const structuredData = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: APP_NAME },
-      { name: "application-name", content: APP_NAME },
+      { title: BROWSER_TITLE },
       { name: "description", content: PAGE_DESC },
-      {
-        name: "keywords",
-        content:
-          "json görselleştirici, json formatter, json viewer, json to typescript, json minify, json validator, json tree, json graph, json visualizer, json nest",
-      },
+      { name: "keywords", content: PAGE_KEYWORDS },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { name: "author", content: "SourcePiece" },
+      { name: "application-name", content: "SourcePiece JSON" },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: APP_NAME },
+      { property: "og:site_name", content: "SourcePiece" },
       { property: "og:title", content: PAGE_TITLE },
       { property: "og:description", content: PAGE_DESC },
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: `${APP_NAME} — JSON Visualizer` },
+      { property: "og:image:alt", content: `${APP_NAME} — JSON Görselleştirici` },
       { property: "og:locale", content: "tr_TR" },
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: PAGE_TITLE },
       { name: "twitter:description", content: PAGE_DESC },
       { name: "twitter:image", content: OG_IMAGE },
-      { name: "twitter:image:alt", content: `${APP_NAME} — JSON Visualizer` },
+      { name: "twitter:image:alt", content: `${APP_NAME} — JSON Görselleştirici` },
       { "script:ld+json": structuredData },
     ],
     links: [
