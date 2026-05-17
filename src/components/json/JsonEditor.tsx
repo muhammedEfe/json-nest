@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ReactFlow, { Background, Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow } from "reactflow";
+import { ClientOnly } from "@tanstack/react-router";
 import { jsonToGraph } from "@/lib/json-to-graph";
 import { jsonToTypescript } from "@/lib/json-to-ts";
 import { JsonNode } from "./JsonNode";
@@ -266,8 +267,16 @@ function OutputPane({
 
 export function JsonEditor() {
   return (
-    <ReactFlowProvider>
-      <Inner />
-    </ReactFlowProvider>
+    <ClientOnly
+      fallback={
+        <div className="flex flex-1 min-h-0 items-center justify-center text-sm text-muted-foreground">
+          Yükleniyor…
+        </div>
+      }
+    >
+      <ReactFlowProvider>
+        <Inner />
+      </ReactFlowProvider>
+    </ClientOnly>
   );
 }
