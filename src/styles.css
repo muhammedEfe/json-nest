@@ -1,0 +1,125 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "reactflow/dist/style.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-key: var(--key);
+  --color-string: var(--string);
+  --color-number: var(--number);
+  --color-boolean: var(--boolean);
+  --color-null: var(--null);
+  --color-node: var(--node);
+  --color-node-border: var(--node-border);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.16 0.015 250);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.21 0.018 250);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.21 0.018 250);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: oklch(0.72 0.18 195);
+  --primary-foreground: oklch(0.15 0.02 250);
+  --secondary: oklch(0.26 0.02 250);
+  --secondary-foreground: oklch(0.97 0.005 250);
+  --muted: oklch(0.24 0.018 250);
+  --muted-foreground: oklch(0.68 0.02 250);
+  --accent: oklch(0.3 0.04 250);
+  --accent-foreground: oklch(0.97 0.005 250);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.3 0.02 250);
+  --input: oklch(0.26 0.02 250);
+  --ring: oklch(0.72 0.18 195);
+
+  --key: oklch(0.78 0.15 220);
+  --string: oklch(0.78 0.16 145);
+  --number: oklch(0.8 0.16 70);
+  --boolean: oklch(0.75 0.2 320);
+  --null: oklch(0.65 0.02 250);
+  --node: oklch(0.22 0.02 250);
+  --node-border: oklch(0.35 0.025 250);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 250);
+  --foreground: oklch(0.97 0.005 250);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+.react-flow__node-jsonNode {
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: auto;
+  font-size: 12px;
+}
+.react-flow__edge-path {
+  stroke: var(--node-border);
+  stroke-width: 1.5;
+}
+.react-flow__background {
+  background-color: var(--background);
+}
+.react-flow__controls {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.react-flow__controls button {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+.react-flow__controls button:hover {
+  background: var(--accent);
+}
+.react-flow__controls button svg { fill: currentColor; }
+
+/* JSON syntax highlight */
+.json-editor { background: var(--background); }
+.json-editor textarea:focus { outline: none; }
+.token.property { color: var(--key); }
+.token.string { color: var(--string); }
+.token.number { color: var(--number); }
+.token.boolean { color: var(--boolean); }
+.token.null { color: var(--null); }
+.token.punctuation { color: var(--muted-foreground); }
+.token.operator { color: var(--muted-foreground); }
