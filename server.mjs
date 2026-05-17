@@ -15,6 +15,7 @@ const handler = mod.default ?? mod;
 
 const port = Number(process.env.PORT ?? 3000);
 const host = process.env.HOST ?? "0.0.0.0";
+const basePath = (process.env.BASE_PATH ?? "/json-nest").replace(/\/+$/, "");
 
 const MIME_TYPES = {
   ".js": "application/javascript; charset=utf-8",
@@ -45,9 +46,12 @@ function resolveStaticPath(urlPath) {
   } catch {
     return null;
   }
+  if (basePath && (pathname === basePath || pathname.startsWith(basePath + "/"))) {
+    pathname = pathname.slice(basePath.length) || "/";
+  }
   if (pathname === "/" || pathname === "") return null;
 
-  const normalized = normalize(pathname).replace(/^[\\/]+/, "");
+  const normalized = normalize(pathname).replace(/^[/\\]+/, "");
   const fullPath = resolve(clientDir, normalized);
   if (fullPath !== clientDir && !fullPath.startsWith(clientDir + sep)) return null;
 
