@@ -1,13 +1,14 @@
 {
-  "name": "SourcePiece — JSON Tools",
-  "short_name": "SourcePiece",
-  "description": "JSON görselleştirici, formatlayıcı ve TypeScript dönüştürücü. %100 tarayıcıda çalışır.",
-  "start_url": "/",
+  "name": "JSON Nest — JSON Visualizer & Formatter",
+  "short_name": "JSON Nest",
+  "description": "JSON visualizer, formatter and TypeScript converter. 100% in-browser.",
+  "start_url": "/json-nest/",
+  "scope": "/json-nest/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#0b0b14",
+  "theme_color": "#0b0b14",
   "icons": [
-    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
-    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+    { "src": "/json-nest/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/json-nest/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
   ]
 }

@@ -1,7 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import "reactflow/dist/style.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -148,3 +147,6 @@
 .token.null { color: var(--null); }
 .token.punctuation { color: var(--muted-foreground); }
 .token.operator { color: var(--muted-foreground); }
+
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { scrollbar-width: none; }

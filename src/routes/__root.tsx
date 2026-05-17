@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "../lib/theme";
+import { I18nProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -77,18 +78,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "format-detection", content: "telephone=no" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { name: "googlebot", content: "index, follow" },
-      { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "SourcePiece" },
-      { property: "og:locale", content: "tr_TR" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
+      { rel: "icon", href: "/json-nest/favicon.svg?v=2", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/json-nest/apple-touch-icon.png" },
+      { rel: "manifest", href: "/json-nest/site.webmanifest" },
     ],
   }),
   shellComponent: RootShell,
@@ -118,7 +113,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Outlet />
+        <I18nProvider>
+          <Outlet />
+        </I18nProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
