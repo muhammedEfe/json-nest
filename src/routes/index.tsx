@@ -3,13 +3,65 @@ import { JsonEditor } from "@/components/json/JsonEditor";
 import { Toaster } from "@/components/ui/sonner";
 import { Github, Lock, Zap } from "lucide-react";
 
+const SITE_URL = "https://sourcepiece.app";
+const PAGE_TITLE = "SourcePiece — JSON Görselleştirici, Formatlayıcı ve TypeScript Dönüştürücü";
+const PAGE_DESC =
+  "JSON verilerini anında etkileşimli grafik, ağaç ve formatlı çıktı olarak görselleştirin. Formatlayın, küçültün, doğrulayın ve TypeScript tiplerine dönüştürün. %100 tarayıcıda, sunucuya veri gitmez.";
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": `${SITE_URL}/#webapp`,
+      name: "SourcePiece JSON Tools",
+      url: SITE_URL,
+      description: PAGE_DESC,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Any",
+      browserRequirements: "Requires JavaScript. Requires HTML5.",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      featureList: [
+        "JSON görselleştirme (grafik)",
+        "JSON ağaç görünümü",
+        "JSON formatlama ve küçültme",
+        "JSON doğrulama",
+        "TypeScript tipi dönüştürücü",
+        "Tarayıcıda çalışır, veri gizliliği",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "SourcePiece",
+      inLanguage: "tr-TR",
+    },
+  ],
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "JSONFlow — Hızlı ve Güvenli JSON Görselleştirici" },
-      { name: "description", content: "JSON verilerinizi anında etkileşimli grafik olarak görselleştirin. Hızlı, güvenli ve tamamen tarayıcınızda çalışır." },
-      { property: "og:title", content: "JSONFlow — JSON Görselleştirici" },
-      { property: "og:description", content: "JSON verilerinizi anında etkileşimli grafik olarak görselleştirin." },
+      { title: PAGE_TITLE },
+      { name: "description", content: PAGE_DESC },
+      { name: "keywords", content: "json görselleştirici, json formatter, json viewer, json to typescript, json minify, json validator, json tree, json graph" },
+      { property: "og:title", content: PAGE_TITLE },
+      { property: "og:description", content: PAGE_DESC },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "SourcePiece JSON Görselleştirici" },
+      { name: "twitter:title", content: PAGE_TITLE },
+      { name: "twitter:description", content: PAGE_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+      { name: "twitter:image:alt", content: "SourcePiece JSON Görselleştirici" },
+      { "script:ld+json": structuredData },
+    ],
+    links: [
+      { rel: "canonical", href: SITE_URL },
     ],
   }),
   component: Home,

@@ -60,18 +60,48 @@ function resolveStaticPath(urlPath) {
   }
 }
 
+const SECURITY_HEADERS = {
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "SAMEORIGIN",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
+};
+
+const LONG_LIVED_NAMES = new Set([
+  "robots.txt",
+  "sitemap.xml",
+  "site.webmanifest",
+  "favicon.svg",
+  "favicon.ico",
+  "apple-touch-icon.png",
+]);
+
+function applySecurityHeaders(res) {
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.setHeader(k, v);
+}
+
 function serveStatic(req, res, file) {
   const ext = extname(file.fullPath).toLowerCase();
   const type = MIME_TYPES[ext] ?? "application/octet-stream";
   const isHashed = /[-.][A-Za-z0-9_-]{8,}\./.test(file.fullPath);
-  const cacheControl = isHashed
-    ? "public, max-age=31536000, immutable"
-    : "public, max-age=0, must-revalidate";
+  const baseName = file.fullPath.split(/[\\/]/).pop() ?? "";
 
+  let cacheControl;
+  if (isHashed) {
+    cacheControl = "public, max-age=31536000, immutable";
+  } else if (LONG_LIVED_NAMES.has(baseName)) {
+    cacheControl = "public, max-age=3600, s-maxage=86400";
+  } else {
+    cacheControl = "public, max-age=0, must-revalidate";
+  }
+
+  applySecurityHeaders(res);
   res.statusCode = 200;
   res.setHeader("content-type", type);
   res.setHeader("content-length", String(file.size));
   res.setHeader("cache-control", cacheControl);
+  res.setHeader("vary", "Accept-Encoding");
 
   if (req.method === "HEAD") {
     res.end();
@@ -115,9 +145,17 @@ function toWebRequest(req) {
 
 async function writeWebResponse(webRes, nodeRes) {
   nodeRes.statusCode = webRes.status;
+  applySecurityHeaders(nodeRes);
   webRes.headers.forEach((value, key) => {
     nodeRes.setHeader(key, value);
   });
+  if (!nodeRes.getHeader("vary")) {
+    nodeRes.setHeader("vary", "Accept-Encoding");
+  }
+  const ct = String(webRes.headers.get("content-type") ?? "");
+  if (ct.includes("text/html") && !nodeRes.getHeader("cache-control")) {
+    nodeRes.setHeader("cache-control", "public, max-age=0, s-maxage=60, stale-while-revalidate=600");
+  }
 
   if (!webRes.body) {
     nodeRes.end();

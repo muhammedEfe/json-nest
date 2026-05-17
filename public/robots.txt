@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow crawl of internal/build paths
+Disallow: /assets/
+Disallow: /_build/
+
+Sitemap: https://sourcepiece.app/sitemap.xml
