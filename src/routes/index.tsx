@@ -7,13 +7,13 @@ import { useI18n } from "@/lib/i18n";
 
 const SITE_URL = "https://sourcepiece.com/json-nest/";
 const APP_NAME = "JSON Nest";
-const BROWSER_TITLE = "JSON Nest";
+const ASSET_VERSION = "2";
 const PAGE_TITLE = "JSON Nest — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
 const PAGE_DESC =
   "JSON görselleştirme, formatlama, küçültme, doğrulama ve TypeScript tipine dönüştürme araçları. Tamamen tarayıcıda çalışır, sunucuya veri yüklenmez. Ücretsiz, hızlı ve güvenli.";
 const PAGE_KEYWORDS =
   "JSON görselleştirici, JSON formatter, JSON viewer, JSON formatla, JSON küçült, JSON doğrula, JSON to TypeScript, JSON tree, JSON graph, JSON minify, JSON validator, online JSON araçları, ücretsiz JSON, tarayıcıda JSON, SourcePiece";
-const OG_IMAGE = `${SITE_URL}og-image.png`;
+const OG_IMAGE = `${SITE_URL}og-image.png?v=${ASSET_VERSION}`;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -49,13 +49,15 @@ const structuredData = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: BROWSER_TITLE },
+      { title: PAGE_TITLE },
       { name: "description", content: PAGE_DESC },
       { name: "keywords", content: PAGE_KEYWORDS },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "author", content: "SourcePiece" },
       { name: "application-name", content: "SourcePiece JSON" },
       { name: "referrer", content: "strict-origin-when-cross-origin" },
+      { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#0a0a0a", media: "(prefers-color-scheme: dark)" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "SourcePiece" },
       { property: "og:title", content: PAGE_TITLE },
@@ -66,7 +68,6 @@ export const Route = createFileRoute("/")({
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: `${APP_NAME} — JSON Görselleştirici` },
       { property: "og:locale", content: "tr_TR" },
-      { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: PAGE_TITLE },
       { name: "twitter:description", content: PAGE_DESC },
@@ -76,9 +77,6 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE_URL },
-      { rel: "alternate", hrefLang: "tr", href: SITE_URL },
-      { rel: "alternate", hrefLang: "en", href: SITE_URL },
-      { rel: "alternate", hrefLang: "x-default", href: SITE_URL },
     ],
   }),
   component: Home,
