@@ -5,7 +5,7 @@ import { Github, Lock, Moon, Sun, Zap } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 import { useI18n } from "@/lib/i18n";
 
-const SITE_URL = "https://sourcepiece.com/json-nest/";
+const SITE_URL = "https://sourcepiece.com/json-tools/";
 const APP_NAME = "JSON Nest";
 const ASSET_VERSION = "2";
 const PAGE_TITLE = "JSON Nest — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
