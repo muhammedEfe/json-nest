@@ -15,7 +15,7 @@ const handler = mod.default ?? mod;
 
 const port = Number(process.env.PORT ?? 3000);
 const host = process.env.HOST ?? "0.0.0.0";
-const basePath = (process.env.BASE_PATH ?? "/json-nest").replace(/\/+$/, "");
+const basePath = (process.env.BASE_PATH ?? "/json-tools").replace(/\/+$/, "");
 
 const MIME_TYPES = {
   ".js": "application/javascript; charset=utf-8",
