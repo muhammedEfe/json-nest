@@ -6,9 +6,9 @@ import { useTheme } from "@/lib/theme";
 import { useI18n } from "@/lib/i18n";
 
 const SITE_URL = "https://sourcepiece.com/json-tools/";
-const APP_NAME = "JSON Nest";
+const APP_NAME = "JSON Tools";
 const ASSET_VERSION = "2";
-const PAGE_TITLE = "JSON Nest — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
+const PAGE_TITLE = "JSON Tools — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
 const PAGE_DESC =
   "JSON görselleştirme, formatlama, küçültme, doğrulama ve TypeScript tipine dönüştürme araçları. Tamamen tarayıcıda çalışır, sunucuya veri yüklenmez. Ücretsiz, hızlı ve güvenli.";
 const PAGE_KEYWORDS =
