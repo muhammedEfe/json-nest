@@ -77,6 +77,9 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE_URL },
+      { rel: "alternate", hrefLang: "tr", href: SITE_URL },
+      { rel: "alternate", hrefLang: "en", href: SITE_URL },
+      { rel: "alternate", hrefLang: "x-default", href: SITE_URL },
     ],
   }),
   component: Home,

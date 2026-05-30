@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /assets/
-Disallow: /_build/
-
-Sitemap: https://sourcepiece.com/json-nest/sitemap.xml
+Sitemap: https://sourcepiece.com/json-tools/sitemap.xml
