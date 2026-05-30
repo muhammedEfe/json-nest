@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ClientOnly } from "@tanstack/react-router";
 import { jsonToTypescript } from "@/lib/json-to-ts";
 import { JsonTree } from "./JsonTree";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Copy, Download, Sparkles, Minimize2, Upload, Check, AlertCircle, Network, ListTree, FileCode, Code2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/analytics";
 
 const GraphView = lazy(() => import("./GraphView"));
 
@@ -47,6 +48,17 @@ function Inner() {
   const [tab, setTab] = useState<Tab>("graph");
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const changeTab = (next: Tab) => {
+    if (next === tab) return;
+    setTab(next);
+    track("tool_action", { action: "view_tab", view: next });
+  };
+
+  // Editör (client) yüklendiğinde tool görüntüleme event'i.
+  useEffect(() => {
+    track("tool_view");
+  }, []);
+
   const parsed = useMemo(() => {
     try {
       return { ok: true as const, value: JSON.parse(text) };
@@ -59,15 +71,18 @@ function Inner() {
     if (!parsed.ok) return toast.error(t("invalidJson"));
     setText(JSON.stringify(parsed.value, null, 2));
     toast.success(t("formatted"));
+    track("tool_action", { action: "format" });
   };
   const minify = () => {
     if (!parsed.ok) return toast.error(t("invalidJson"));
     setText(JSON.stringify(parsed.value));
     toast.success(t("minified"));
+    track("tool_action", { action: "minify" });
   };
   const copy = async (s: string, label?: string) => {
     await navigator.clipboard.writeText(s);
     toast.success(label ?? t("copiedToClipboard"));
+    track("tool_copy", { char_count: s.length });
   };
   const download = (content: string, filename: string, mime: string) => {
     const blob = new Blob([content], { type: mime });
@@ -77,11 +92,13 @@ function Inner() {
     a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
+    track("tool_download", { file_type: filename.split(".").pop() ?? "json" });
   };
   const onUpload = (f: File) => {
     const reader = new FileReader();
     reader.onload = () => setText(String(reader.result ?? ""));
     reader.readAsText(f);
+    track("file_upload", { file_type: "json", file_count: 1 });
   };
 
   const formatted = parsed.ok ? JSON.stringify(parsed.value, null, 2) : "";
@@ -151,10 +168,10 @@ function Inner() {
       {/* Right: tabs */}
       <div className="flex-1 min-h-[50vh] lg:min-h-0 flex flex-col bg-background">
         <div className="flex items-center border-b border-border bg-card/40 px-2 overflow-x-auto scrollbar-none">
-          <TabButton active={tab === "graph"} onClick={() => setTab("graph")} icon={Network} label={t("tabGraph")} />
-          <TabButton active={tab === "tree"} onClick={() => setTab("tree")} icon={ListTree} label={t("tabTree")} />
-          <TabButton active={tab === "formatted"} onClick={() => setTab("formatted")} icon={FileCode} label={t("tabOutput")} />
-          <TabButton active={tab === "ts"} onClick={() => setTab("ts")} icon={Code2} label={t("tabTypescript")} />
+          <TabButton active={tab === "graph"} onClick={() => changeTab("graph")} icon={Network} label={t("tabGraph")} />
+          <TabButton active={tab === "tree"} onClick={() => changeTab("tree")} icon={ListTree} label={t("tabTree")} />
+          <TabButton active={tab === "formatted"} onClick={() => changeTab("formatted")} icon={FileCode} label={t("tabOutput")} />
+          <TabButton active={tab === "ts"} onClick={() => changeTab("ts")} icon={Code2} label={t("tabTypescript")} />
         </div>
         <div className="flex-1 min-h-0 relative">
           {!parsed.ok ? (
