@@ -7,13 +7,12 @@ import { useI18n } from "@/lib/i18n";
 
 const SITE_URL = "https://sourcepiece.com/json-tools/";
 const APP_NAME = "JSON Tools";
-const ASSET_VERSION = "2";
 const PAGE_TITLE = "JSON Tools — Ücretsiz Online JSON Görselleştirici ve Formatlayıcı | SourcePiece";
 const PAGE_DESC =
   "JSON görselleştirme, formatlama, küçültme, doğrulama ve TypeScript tipine dönüştürme araçları. Tamamen tarayıcıda çalışır, sunucuya veri yüklenmez. Ücretsiz, hızlı ve güvenli.";
 const PAGE_KEYWORDS =
   "JSON görselleştirici, JSON formatter, JSON viewer, JSON formatla, JSON küçült, JSON doğrula, JSON to TypeScript, JSON tree, JSON graph, JSON minify, JSON validator, online JSON araçları, ücretsiz JSON, tarayıcıda JSON, SourcePiece";
-const OG_IMAGE = `${SITE_URL}og-image.png?v=${ASSET_VERSION}`;
+const OG_IMAGE = "https://sourcepiece.com/assets/og-image.png";
 
 const structuredData = {
   "@context": "https://schema.org",
