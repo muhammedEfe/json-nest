@@ -10,6 +10,8 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    defaultPendingMs: 1000,
+    defaultPendingMinMs: 0,
     basepath: "/json-tools",
   });
 
