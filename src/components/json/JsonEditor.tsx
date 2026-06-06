@@ -5,7 +5,7 @@ import { JsonTree } from "./JsonTree";
 import { CodeEditor } from "./CodeEditor";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Copy, Download, Sparkles, Minimize2, Upload, Check, AlertCircle, Network, ListTree, FileCode, Code2 } from "lucide-react";
+import { Copy, Download, Sparkles, Minimize2, Eraser, Upload, Check, AlertCircle, Network, ListTree, FileCode, Code2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 
@@ -79,6 +79,31 @@ function Inner() {
     toast.success(t("minified"));
     track("tool_action", { action: "minify" });
   };
+  // Boşlukları yalnızca string literalleri DIŞINDA siler; geçersiz JSON'da da
+  // çalışır ve string içeriklerini bozmaz.
+  const stripWhitespace = () => {
+    let out = "";
+    let inStr = false;
+    let esc = false;
+    for (const ch of text) {
+      if (inStr) {
+        out += ch;
+        if (esc) esc = false;
+        else if (ch === "\\") esc = true;
+        else if (ch === '"') inStr = false;
+      } else if (ch === '"') {
+        inStr = true;
+        out += ch;
+      } else if (ch === " " || ch === "\t" || ch === "\n" || ch === "\r") {
+        // skip whitespace outside strings
+      } else {
+        out += ch;
+      }
+    }
+    setText(out);
+    toast.success(t("whitespaceRemoved"));
+    track("tool_action", { action: "strip_whitespace" });
+  };
   const copy = async (s: string, label?: string) => {
     await navigator.clipboard.writeText(s);
     toast.success(label ?? t("copiedToClipboard"));
@@ -117,6 +142,9 @@ function Inner() {
           <Button size="sm" variant="ghost" onClick={minify}>
             <Minimize2 className="h-4 w-4" />
             <span className="hidden sm:inline ml-1">{t("minify")}</span>
+          </Button>
+          <Button size="sm" variant="ghost" onClick={stripWhitespace} title={t("stripWhitespace")}>
+            <Eraser className="h-4 w-4" />
           </Button>
           <Button size="sm" variant="ghost" onClick={() => copy(text)} title={t("copy")}>
             <Copy className="h-4 w-4" />
